@@ -92,7 +92,36 @@ body {
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+<script>
+  (function() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+                     || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
+    if (isMobile) {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.innerHTML = `
+          <div style="
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            background: #111; 
+            color: #fff; 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 20px;
+          ">
+            <h2>Desktop Only</h2>
+            <p>This game is designed for mouse and keyboard and is not available on mobile or tablet devices. Please open this link on a desktop or laptop computer.</p>
+          </div>
+        `;
+      });
+      // Stop further execution so the engine doesn't start downloading
+      throw new Error("Mobile device detected. Aborting launch.");
+    }
+  })();
+</script>
 	</head>
 	<body>
 		<canvas id="canvas">
